@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JSON Y AJAX</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript">
+		function loadData() {
+			//crear una peticion
+			let xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://pepeag98.github.io/practica/test.json")
+
+			xhr.onreadystatechange = function() {
+				console.log(this.readyState, this.status, this.statusText);
+			}
+			//procesar la peticion
+			xhr.onload = function(){
+				if(this.readyState === 4 && this.status === 200)
+				{
+					//cambiar texto
+					
+					let data = JSON.parse(this.responseText);
+					let emptyDiv = document.getElementByID("loaded-info")
+					console.log(data);
+					let html = '';
+					data.forEach(function(a){
+						html += '<p>'
+						html += a.nombre + ' ' + a.apellido
+						html += '<p>'
+					});
+
+					emptyDiv.insertAjancentHTML('beforeend', html);
+
+					//esconder el boton
+				} else {
+					// la info no llego
+					alert ("ERROR: " + this.status);
+				}
+			}
+			//enviar la peticion
+			xhr.send();
+
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<h1>JSON Y AJAX</h1>
+		<h3>Permitir que AJAX modifique el contenido</h3>
+		<button id="btn" type="button" onclick="loadData()">Mostrar informacion sin recargar</button>
+	</header>
+
+</body>
+</html>
