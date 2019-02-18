@@ -4,7 +4,12 @@
 		"apellido": "y"
 	},
 	{
-	"nombre2": "a",
+	"nombre": "a",
 	"apellido": "b"
+	},
+	{
+		"nombre": "c",
+		"apellido": "d"
+
 	}
 ]
