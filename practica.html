@@ -7,6 +7,7 @@
 		function loadData() {
 			//crear una peticion
 			let xhr = new XMLHttpRequest();
+			
 			xhr.open("GET", "https://pepeag98.github.io/practica/test.json")
 
 			xhr.onreadystatechange = function() {
@@ -27,7 +28,7 @@
 						html += a.nombre + ' ' + a.apellido
 						html += '<p>'
 					});
-
+					
 					emptyDiv.insertAdjacentHTML('beforeend', html);
 
 					//esconder el boton
@@ -36,9 +37,40 @@
 					alert ("ERROR: " + this.status);
 				}
 			}
+			xhr.onerror = function(){
+				alert("La conexion ha fallado")
+			}
 			//enviar la peticion
 			xhr.send();
 
+		}
+
+		function postexample(){
+			let xhr = new XMLHttpRequest();
+			xhr.open("POST", "http://10.24.43.221:3000/kittens");
+			xhr.setRequestHeader("content-type", "application/json");
+
+			xhr.onload = function(){};
+
+			xhr.onerror = function(){
+				alert("la conexion ha fallado");
+			};
+
+			let name = document.getElementById('name').value;
+			let cuteness = document.getElementById('cuteness').value;
+			let color = document.getElementById('color').value;
+			let owner = document.getElementById('owner').value;
+			let explodes = document.getElementById('explodes').checked;
+			let data = {name, cuteness, color, owner, explodes};
+
+			let data2 = JSON.stringify(data);
+			//console.log(obj);
+			console.log(data2);
+
+			xhr.send(data2);
+
+
+			//http://10.24.43.221:300/kittens
 		}
 	</script>
 </head>
@@ -47,6 +79,17 @@
 		<h1>JSON Y AJAX</h1>
 		<h3>Permitir que AJAX modifique el contenido</h3>
 		<button id="btn" type="button" onclick="loadData()">Mostrar informacion sin recargar</button>
+		<div id="loaded-info"></div><br><br>
+		<form>
+			Name: <input type="text" id="name"><br>
+			Cuteness: <input type="number" id="cuteness"><br>
+			Color: <input type="text" id="color"><br>
+			Owner: <input type="text" id="owner"><br>
+			Explode<input type="checkbox" id="explodes" checked><br>
+			<button type="button" onclick="postexample()">Crear gatitio</button>
+
+s
+		</form>
 	</header>
 
 </body>
